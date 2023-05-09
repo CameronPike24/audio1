@@ -1,19 +1,19 @@
 [app]
 
 # (str) Title of your application
-title = KivyExample
+title = Audio1
 
 # (str) Package name
-package.name = kivy_example
+package.name = c4k_tflite_audio1
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.kivy_example
+package.domain = org.example
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+source.include_exts = py,png,jpg,kv,atlas,tflite,csv
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -26,7 +26,7 @@ source.include_exts = py,png,jpg,kv,atlas
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'
-#source.exclude_patterns = license,images/*/*.jpg
+source.exclude_patterns = object_detection/efficient*.tflite
 
 # (str) Application versioning (method 1)
 version = 0.1
@@ -37,21 +37,23 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-#requirements = python3,kivy==2.0.0rc4,kivy_garden.graph,numpy,audiostream
-requirements = python==3.8,kivy,kivy_garden.graph,numpy,audiostream
+#requirements = python3,kivy,camera4kivy,gestures4kivy,numpy,tflite-runtime,kivymd,pandas,autopoint,gettext
+requirements = python3,kivy,camera4kivy,gestures4kivy,numpy,tflite-runtime,kivymd,requests,urllib3,chardet,idna,kivy_garden.graph,audiostream
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-#presplash.filename = %(source.dir)s/data/presplash.png
+#presplash.filename = %(source.dir)s/icons/fishlogo.png
 
 # (str) Icon of the application
 #icon.filename = %(source.dir)s/data/icon.png
+#icon.filename = %(source.dir)s/icons/fishlogo.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
-orientation = portrait
+#orientation = all
+orientation = portrait,landscape
 
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
@@ -67,7 +69,7 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 2.0.0
+osx.kivy_version = 1.9.1
 
 #
 # Android specific
@@ -100,9 +102,9 @@ android.permissions = INTERNET,RECORD_AUDIO,WAKE_LOCK
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 30
+android.api = 32
 
-# (int) Minimum API your APK / AAB will support.
+# (int) Minimum API your APK will support.
 #android.minapi = 21
 
 # (int) Android SDK version to use
@@ -261,9 +263,8 @@ android.api = 30
 # (bool) Copy library instead of making a libpymodules.so
 #android.copy_libs = 1
 
-# (list) The Android archs to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
-# In past, was `android.arch` as we weren't supporting builds for multiple archs at the same time.
-android.archs = arm64-v8a, armeabi-v7a
+# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
+android.archs = arm64-v8a
 
 # (int) overrides automatic versionCode computation (used in build.gradle)
 # this is not the same as app version and should only be edited if you know what you're doing
@@ -284,9 +285,6 @@ android.allow_backup = True
 # (bool) disables the compilation of py to pyc/pyo files when packaging
 # android.no-compile-pyo = True
 
-# (str) The format used to package the app for release mode (aab or apk).
-#android.release_artifact = aab
-android.release_artifact = apk
 #
 # Python for android (p4a) specific
 #
@@ -298,8 +296,7 @@ android.release_artifact = apk
 #p4a.fork = kivy
 
 # (str) python-for-android branch to use, defaults to master
-#p4a.branch = master
-p4a.branch = develop
+# p4a.branch = develop
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD
@@ -311,7 +308,7 @@ p4a.branch = develop
 #p4a.local_recipes =
 
 # (str) Filename to the hook for p4a
-#p4a.hook =
+#p4a.hook = camerax_provider/gradle_options.py
 
 # (str) Bootstrap to use for android builds
 # p4a.bootstrap = sdl2
@@ -387,7 +384,7 @@ warn_on_root = 1
 # (str) Path to build artifact storage, absolute or relative to spec file
 # build_dir = ./.buildozer
 
-# (str) Path to build output (i.e. .apk, .aab, .ipa) storage
+# (str) Path to build output (i.e. .apk, .ipa) storage
 # bin_dir = ./bin
 
 #    -----------------------------------------------------------------------------
